@@ -19,6 +19,11 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
       - name: Get dependencies
         run: flutter pub get
 
@@ -27,6 +32,10 @@ jobs:
 
       - name: Test
         run: flutter test
+
+      - name: Generate Gradle wrapper
+        working-directory: android
+        run: gradle wrapper --gradle-version 8.7 --distribution-type bin
 
       - name: Build APK
         run: flutter build apk --release
