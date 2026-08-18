@@ -7,7 +7,6 @@
     <application
         android:label="NavAR"
         android:name="${applicationName}"
-        android:icon="@drawable/ic_launcher"
         android:usesCleartextTraffic="false">
         <activity
             android:name=".MainActivity"
