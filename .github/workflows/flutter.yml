@@ -19,11 +19,6 @@ jobs:
           channel: stable
           cache: true
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.7'
-
       - name: Get dependencies
         run: flutter pub get
 
@@ -33,9 +28,18 @@ jobs:
       - name: Test
         run: flutter test
 
-      - name: Generate Gradle wrapper
-        working-directory: android
-        run: gradle wrapper --gradle-version 8.7 --distribution-type bin
+      - name: Prepare Gradle wrapper
+        shell: bash
+        run: |
+          rm -rf /tmp/flutter_wrapper
+          flutter create --platforms=android --no-pub /tmp/flutter_wrapper
+          cp /tmp/flutter_wrapper/android/gradlew android/gradlew
+          cp /tmp/flutter_wrapper/android/gradlew.bat android/gradlew.bat
+          rm -rf android/gradle/wrapper
+          mkdir -p android/gradle
+          cp -R /tmp/flutter_wrapper/android/gradle/wrapper android/gradle/wrapper
+          chmod +x android/gradlew
+          sed -i 's#distributionUrl=.*#distributionUrl=https\\://services.gradle.org/distributions/gradle-8.7-bin.zip#' android/gradle/wrapper/gradle-wrapper.properties
 
       - name: Build APK
         run: flutter build apk --release
