@@ -1,7 +1,7 @@
 name: navar
-description: Open-source AR navigation prototype without Google Maps or Yandex Maps.
+description: Real maps, routing, GPS and camera AR navigation prototype.
 publish_to: "none"
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ">=3.3.0 <4.0.0"
@@ -13,6 +13,9 @@ dependencies:
   latlong2: ^0.9.1
   geolocator: ^12.0.0
   permission_handler: ^11.3.1
+  camera: ^0.11.0+2
+  flutter_compass: ^0.8.1
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
